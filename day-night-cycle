@@ -1,0 +1,12 @@
+var time := 0.0
+
+func _process(delta):
+    time += delta * 0.05  # speed of cycle
+
+    var t = (sin(time) + 1.0) / 2.0  # value between 0 and 1
+
+    # interpolate between day and night colors
+    var day_color = Color(1, 1, 1)
+    var night_color = Color(0.2, 0.2, 0.5)
+
+    $CanvasModulate.color = day_color.lerp(night_color, t)
