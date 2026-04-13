@@ -3,8 +3,12 @@ extends Node
 var save_path = "user://savegame.json"
 
 func save_game(player):
+	var pos = player.global_transform.origin
+	
 	var data = {
-		"position": player.global_transform.origin
+		"pos_x": pos.x,
+		"pos_y": pos.y,
+		"pos_z": pos.z
 	}
 	
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -19,4 +23,8 @@ func load_game(player):
 	var data = JSON.parse_string(file.get_as_text())
 	
 	if data:
-		player.global_transform.origin = data["position"]
+		player.global_transform.origin = Vector3(
+			data["pos_x"],
+			data["pos_y"],
+			data["pos_z"]
+		)
